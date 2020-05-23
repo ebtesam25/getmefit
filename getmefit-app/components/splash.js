@@ -26,6 +26,7 @@ export default class Splash extends React.Component  {
     return (
     <View style={styles.container}>
       <Image source={require('../assets/splash.png')} style={styles.header}></Image>
+      <Image source={require('../assets/applogo.png')} style={styles.logo}></Image>
       <Image source={require('../assets/splashb.png')} style={styles.bg}></Image>
       <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Home')}>Welcome!</Text>
     </View>
@@ -46,6 +47,15 @@ const styles = StyleSheet.create({
   header:{
     height:'50%',
     width:'100%',
+  },
+  logo:{
+    height:'50%',
+    width:'50%',
+    resizeMode:'contain',
+    zIndex:3,
+    position:'absolute',
+    alignSelf:'center',
+    top:'-10%',
   },
   bg:{
     height:'35%',
