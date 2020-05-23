@@ -1,0 +1,17 @@
+{
+  "name": "getmefit-app",
+  "displayName": "getmefit-app",
+  "expo": {
+    "name": "getmefit-app",
+    "slug": "getmefit-app",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
