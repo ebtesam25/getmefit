@@ -7,6 +7,11 @@ import Splash from './components/splash';
 import Home from './components/home';
 import Hometwo from './components/hometwo';
 import Menu from './components/menu';
+import Pulse from './components/pulse';
+import Temperature from './components/temperature';
+import Oxygen from './components/oxygen';
+import Steps from './components/steps';
+import Gsr from './components/gsr';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +36,31 @@ function MyStack() {
       <Stack.Screen 
         name="Menu" 
         component={Menu}
+        options={{ headerShown: false}}  
+      />
+       <Stack.Screen 
+        name="Pulse" 
+        component={Pulse}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Temperature" 
+        component={Temperature}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Oxygen" 
+        component={Oxygen}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Steps" 
+        component={Steps}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Gsr" 
+        component={Gsr}
         options={{ headerShown: false}}  
       />
     </Stack.Navigator>

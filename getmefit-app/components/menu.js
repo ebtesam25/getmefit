@@ -27,11 +27,11 @@ export default class Menu extends React.Component  {
     <View style={styles.container}>
         <Image source={require('../assets/home.png')} style={styles.home}></Image><Text style={styles.hometxt} onPress={() => this.props.navigation.navigate('Home')}>HOME</Text>
       <Text style={styles.menutxt}>MENU</Text>
-      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Home')}>Pulse</Text>
-      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Home')}>Temperature</Text>
-      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Home')}>Oxygen</Text>
-      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Home')}>Steps</Text>
-      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Home')}>GSR</Text>
+      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Pulse')}>Pulse</Text>
+      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Temperature')}>Temperature</Text>
+      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Oxygen')}>Oxygen</Text>
+      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Steps')}>Steps</Text>
+      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Gsr')}>GSR</Text>
       <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Home')}>Purifier</Text>
       <Text style={styles.emergency} onPress={() => this.props.navigation.navigate('Home')}>Emergency</Text>
       <Image source={require('../assets/back.png')} style={styles.back}></Image><Text style={styles.backtxt} onPress={() => this.props.navigation.navigate('Hometwo')}>BACK</Text>
