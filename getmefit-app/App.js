@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Splash from './components/splash';
 import Home from './components/home';
 import Hometwo from './components/hometwo';
-import Notification from './components/notification';
+import Menu from './components/menu';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +26,11 @@ function MyStack() {
       <Stack.Screen 
         name="Hometwo" 
         component={Hometwo}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Menu" 
+        component={Menu}
         options={{ headerShown: false}}  
       />
     </Stack.Navigator>

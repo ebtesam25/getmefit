@@ -30,7 +30,7 @@ export default class Hometwo extends React.Component  {
       <Image source={require('../assets/header.png')} style={styles.header}></Image>
       <Text style={styles.txt}>Hello,</Text>
       <Text style={styles.txt2}>John Doe</Text>
-      <Image source={require('../assets/menu.png')} style={styles.menu}></Image>
+      <Image source={require('../assets/menu.png')} style={styles.menu}></Image><Text style={styles.menutxt} onPress={() => this.props.navigation.navigate('Menu')}>MENU</Text>
       <Image source={require('../assets/avatar.png')} style={styles.avatar}></Image>
       <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}><Image source={require('../assets/body.png')} style={styles.body} ></Image></TouchableOpacity>
       <Image source={require('../assets/pointer.png')} style={styles.temp}></Image>
@@ -97,6 +97,14 @@ const styles = StyleSheet.create({
     resizeMode:'contain',
     alignSelf:'center',
     zIndex:2,
+  },
+  menutxt:{
+    position:'absolute',
+    zIndex:6,
+    right:'4%',
+    top:'5%',
+    fontSize:40,
+    color:'transparent'
   },
   txt:{
     fontFamily:'Avenir',

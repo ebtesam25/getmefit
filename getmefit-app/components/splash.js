@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   container: {
     height:'100%',
     position:'relative',
-    backgroundColor: '#d4dcff',
+    backgroundColor: '#8a91f9',
   },
   header:{
     height:'50%',
