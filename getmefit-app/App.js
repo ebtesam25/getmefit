@@ -14,6 +14,8 @@ import Steps from './components/steps';
 import Gsr from './components/gsr';
 import Purifier from './components/purifier';
 import Emergency from './components/emergency';
+import Stepsweek from './components/stepsweek';
+import Stepstotal from './components/stepstotal';
 
 const Stack = createStackNavigator();
 
@@ -58,6 +60,16 @@ function MyStack() {
       <Stack.Screen 
         name="Steps" 
         component={Steps}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Stepsweek" 
+        component={Stepsweek}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Stepstotal" 
+        component={Stepstotal}
         options={{ headerShown: false}}  
       />
       <Stack.Screen 

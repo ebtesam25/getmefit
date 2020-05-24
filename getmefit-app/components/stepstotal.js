@@ -10,7 +10,7 @@ let customFonts  = {
   'Futura': require('../assets/fonts/Futura.ttf'),
 };
 
-export default class Steps extends React.Component  {
+export default class Stepstotal extends React.Component  {
  
   state = {
     fontsLoaded: false,
@@ -52,8 +52,8 @@ export default class Steps extends React.Component  {
       <Image source={require('../assets/steplogo.png')} style={styles.avatar}></Image>
 
       <Image source={require('../assets/step.png')} style={styles.body}></Image>
-      <Text style={styles.pr} onPress={() => this.props.navigation.navigate('Stepsweek')}>{parseInt(this.state.data.dailysteps)}</Text>
-      <Text style={styles.state}>DAILY</Text>
+      <Text style={styles.pr} onPress={() => this.props.navigation.navigate('Steps')}>{parseInt(this.state.data.totalsteps)}</Text>
+      <Text style={styles.state}>TOTAL</Text>
 
 
       <LineChart
