@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight,Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight,Dimensions, ActivityIndicator } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -9,11 +9,17 @@ let customFonts  = {
   'Avenir': require('../assets/fonts/Avenir.ttf'),
   'Futura': require('../assets/fonts/Futura.ttf'),
 };
-
+var obj=[];
+var dset=[];
+var max=0;
 export default class Temperature extends React.Component  {
-  state = {
-    fontsLoaded: false,
-  };
+    state = {
+        isLoading: true,
+        fontsLoaded: false,
+        data: '',
+        dataset:[],
+      };
+
 
   async _loadFontsAsync() {
     await Font.loadAsync(customFonts);
@@ -22,10 +28,38 @@ export default class Temperature extends React.Component  {
 
   componentDidMount() {
     this._loadFontsAsync();
+    fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetallinternal', {
+         method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+         console.log(responseJson);
+         obj=responseJson;
+         max=obj.length;
+         console.log(max);
+         for(var i=0;i<obj.length;i++){
+           dset[i]=parseInt(obj[i]["internal temperature"]);
+           console.log(dset[i]);
+         }
+         this.setState({
+            dataset: responseJson
+         });
+      })
+      .catch((error) => {
+         console.error(error);
+      });
   }
 
   render(){
-    if (this.state.fontsLoaded) {
+    if(this.state.isLoading && dset.length<2){
+        return(
+          <View style={{flex: 1, padding: 20}}>
+              <ActivityIndicator/>
+            </View>
+    
+        );
+    }
+    else if (this.state.fontsLoaded) {
     return (
     <View style={styles.container}>
       <Image source={require('../assets/header.png')} style={styles.header}></Image>
@@ -35,23 +69,16 @@ export default class Temperature extends React.Component  {
       <Image source={require('../assets/templogo.png')} style={styles.avatar}></Image>
 
       <Image source={require('../assets/temp.png')} style={styles.body}></Image>
-      <Text style={styles.pr}>65</Text><Text style={styles.deg}>°</Text>
+      <Text style={styles.pr}>{dset[max-1]}</Text>
       <Text style={styles.state}>NORMAL</Text>
 
 
       <LineChart
             data={{
-                labels: ['January', 'February', 'March', 'April'],
+                
                 datasets: [
                 {
-                    data: [
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    ],
+                    data: dset,
                 },
                 ],
             }}
@@ -139,7 +166,7 @@ const styles = StyleSheet.create({
   },
   txt2:{
     fontFamily:'Avenir',
-    fontSize:43,
+    fontSize:40,
     top:'6.5%',
     marginLeft:20,
     color:'#3f3d56',
@@ -156,21 +183,12 @@ const styles = StyleSheet.create({
   },
   pr:{
       fontFamily:'Avenir',
-      fontSize:100,
+      fontSize:80,
       position:'absolute',
       zIndex:3,
-      top:'40%',
-      left:'32.5%',
+      top:'42%',
+      alignSelf:'center',
       color:'#3f3d56',
-  },
-  deg:{
-    fontFamily:'Avenir',
-    fontSize:60,
-    position:'absolute',
-    zIndex:3,
-    top:'40%',
-    right:'35%',
-    color:'#3f3d56',
   },
   state:{
     fontFamily:'Futura',

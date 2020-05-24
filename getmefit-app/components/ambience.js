@@ -11,6 +11,7 @@ let customFonts  = {
 };
 var obj=[];
 var dset=[];
+var max=0;
 export default class Ambience extends React.Component  {
     state = {
         isLoading: true,
@@ -32,7 +33,8 @@ export default class Ambience extends React.Component  {
       .then((response) => response.json())
       .then((responseJson) => {
          console.log(responseJson);
-         var obj=responseJson;
+         obj=responseJson;
+         max=obj.length;
          for(var i=0;i<obj.length;i++){
            dset[i]=parseFloat(obj[i]["humidity"]).toFixed(2);
            console.log(dset[i]);
@@ -66,7 +68,7 @@ export default class Ambience extends React.Component  {
       <Image source={require('../assets/ambiencelogo.png')} style={styles.avatar}></Image>
 
       <Image source={require('../assets/humidity.png')} style={styles.body}></Image>
-      <Text style={styles.pr} onPress={() => this.props.navigation.navigate('Pressure')}>{dset[0]}</Text>
+      <Text style={styles.pr} onPress={() => this.props.navigation.navigate('Pressure')}>{dset[max-1]}</Text>
       <Text style={styles.state}>HUMIDITY</Text>
 
 

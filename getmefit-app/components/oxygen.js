@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight,Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight,Dimensions, ActivityIndicator } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -9,11 +9,14 @@ let customFonts  = {
   'Avenir': require('../assets/fonts/Avenir.ttf'),
   'Futura': require('../assets/fonts/Futura.ttf'),
 };
-
+var obj=[];
+var dset=[];
 export default class Oxygen extends React.Component  {
   state = {
+    isLoading: true,
     fontsLoaded: false,
     data: '',
+    dataset:[],
   };
 
   async _loadFontsAsync() {
@@ -23,12 +26,17 @@ export default class Oxygen extends React.Component  {
 
   componentDidMount() {
     this._loadFontsAsync();
-    fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetheartrateandox', {
+    fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetallinternal', {
          method: 'GET'
       })
       .then((response) => response.json())
       .then((responseJson) => {
-         console.log(responseJson["blood oxygen"]);
+         console.log(responseJson["ox"]);
+         obj=responseJson;
+         for(var i=0;i<obj.length;i++){
+           dset[i]=parseInt(obj[i]["ox"]);
+           console.log(dset[i]);
+         }
          this.setState({
             data: responseJson
          });
@@ -41,7 +49,15 @@ export default class Oxygen extends React.Component  {
   }
 
   render(){
-    if (this.state.fontsLoaded) {
+    if(this.state.isLoading && dset.length<1){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+            <ActivityIndicator/>
+          </View>
+  
+      );
+    }
+    else if  (this.state.fontsLoaded) {
     return (
     <View style={styles.container}>
       <Image source={require('../assets/header.png')} style={styles.header}></Image>
@@ -51,23 +67,16 @@ export default class Oxygen extends React.Component  {
       <Image source={require('../assets/oxygenlogo.png')} style={styles.avatar}></Image>
 
       <Image source={require('../assets/oxygen.png')} style={styles.body}></Image>
-      <Text style={styles.pr}>{this.state.data["blood oxygen"]}</Text><Text style={styles.deg}>%</Text>
+      <Text style={styles.pr}>{parseFloat(dset[obj.length-1]).toFixed(2)}</Text><Text style={styles.deg}>%</Text>
       <Text style={styles.state}>NORMAL</Text>
 
 
       <LineChart
             data={{
-                labels: ['January', 'February', 'March', 'April'],
+                
                 datasets: [
                 {
-                    data: [
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    ],
+                    data: dset,
                 },
                 ],
             }}
@@ -172,11 +181,11 @@ const styles = StyleSheet.create({
   },
   pr:{
       fontFamily:'Avenir',
-      fontSize:100,
+      fontSize:50,
       position:'absolute',
       zIndex:3,
-      top:'40%',
-      left:'32.5%',
+      top:'45%',
+      left:'30%',
       color:'#3f3d56',
   },
   deg:{

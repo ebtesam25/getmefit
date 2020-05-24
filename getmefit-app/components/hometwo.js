@@ -62,7 +62,7 @@ export default class Hometwo extends React.Component  {
       <Image source={require('../assets/line4.png')} style={styles.line4}></Image>
       <Text style={styles.ox}>OXYGEN</Text>
       <Text style={styles.sat}>SATURATION</Text>
-      <Text style={styles.oxs} onPress={() => this.props.navigation.navigate('Oxygen')}>{this.state.data["blood oxygen"]}%</Text>
+      <Text style={styles.oxs} onPress={() => this.props.navigation.navigate('Oxygen')}>{parseFloat(this.state.data["blood oxygen"]).toFixed(1)}%</Text>
 
 
       

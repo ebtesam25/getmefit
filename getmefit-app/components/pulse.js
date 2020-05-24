@@ -40,16 +40,16 @@ export default class Pulse extends React.Component  {
       .catch((error) => {
          console.error(error);
       });
-      fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetallheartrates', {
+      fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetallinternal', {
          method: 'GET'
       })
       .then((response) => response.json())
       .then((responseJson) => {
          console.log(responseJson);
-         obj=responseJson;
+         var obj=responseJson;
          for(var i=0;i<obj.length;i++){
-           dset[i]=parseInt(obj[i]);
-           console.log(typeof dset[2]);
+           dset[i]=parseInt(obj[i]["pulse"]);
+           console.log(dset[i]);
          }
          this.setState({
             dataset: responseJson
@@ -63,7 +63,7 @@ export default class Pulse extends React.Component  {
   }
 
   render(){
-    if(this.state.isLoading && dset.length<3){
+    if(this.state.isLoading && dset.length<1){
       return(
         <View style={{flex: 1, padding: 20}}>
             <ActivityIndicator/>
@@ -81,7 +81,7 @@ export default class Pulse extends React.Component  {
       <Image source={require('../assets/pulse.png')} style={styles.avatar}></Image>
 
       <Image source={require('../assets/pulse2.png')} style={styles.body}></Image>
-      <Text style={styles.pr}>{this.state.data.pulse}</Text><Text style={styles.bpm}>bpm</Text>
+      <Text style={styles.pr}>{parseFloat(dset[obj.length-1]).toFixed(1)}</Text><Text style={styles.bpm}>bpm</Text>
       <Text style={styles.state}>GOOD</Text>
 
 
@@ -194,10 +194,10 @@ const styles = StyleSheet.create({
   },
   pr:{
       fontFamily:'Avenir',
-      fontSize:100,
+      fontSize:35,
       position:'absolute',
       zIndex:3,
-      top:'40%',
+      top:'45%',
       left:'32.5%',
       color:'#3f3d56',
   },
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     fontSize:25,
     position:'absolute',
     zIndex:3,
-    top:'47%',
+    top:'46%',
     right:'30%',
     color:'#3f3d56',
   },

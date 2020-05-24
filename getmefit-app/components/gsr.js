@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight,Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight,Dimensions, ActivityIndicator } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -9,11 +9,16 @@ let customFonts  = {
   'Avenir': require('../assets/fonts/Avenir.ttf'),
   'Futura': require('../assets/fonts/Futura.ttf'),
 };
-
+var obj=[];
+var dset=[];
 export default class Gsr extends React.Component  {
-  state = {
-    fontsLoaded: false,
-  };
+    state = {
+        isLoading: true,
+        fontsLoaded: false,
+        data: '',
+        dataset:[],
+      };
+
 
   async _loadFontsAsync() {
     await Font.loadAsync(customFonts);
@@ -22,10 +27,36 @@ export default class Gsr extends React.Component  {
 
   componentDidMount() {
     this._loadFontsAsync();
+    fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetallinternal', {
+         method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+         console.log(responseJson);
+         var obj=responseJson;
+         for(var i=0;i<obj.length;i++){
+           dset[i]=parseInt(obj[i]["gsr"]);
+           console.log(dset[i]);
+         }
+         this.setState({
+            dataset: responseJson
+         });
+      })
+      .catch((error) => {
+         console.error(error);
+      });
   }
 
   render(){
-    if (this.state.fontsLoaded) {
+    if(this.state.isLoading && dset.length<3){
+        return(
+          <View style={{flex: 1, padding: 20}}>
+              <ActivityIndicator/>
+            </View>
+    
+        );
+    }
+    else if (this.state.fontsLoaded) {
     return (
     <View style={styles.container}>
       <Image source={require('../assets/header.png')} style={styles.header}></Image>
@@ -35,23 +66,16 @@ export default class Gsr extends React.Component  {
       <Image source={require('../assets/gsrlogo.png')} style={styles.avatar}></Image>
 
       <Image source={require('../assets/gsr.png')} style={styles.body}></Image>
-      <Text style={styles.pr}>230</Text>
+      <Text style={styles.pr}>{dset[0]}</Text>
       <Text style={styles.state}>NORMAL</Text>
 
 
       <LineChart
             data={{
-                labels: ['January', 'February', 'March', 'April'],
+                
                 datasets: [
                 {
-                    data: [
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    Math.random() * 100,
-                    ],
+                    data: dset,
                 },
                 ],
             }}

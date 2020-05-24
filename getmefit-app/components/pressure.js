@@ -32,7 +32,7 @@ export default class Pressure extends React.Component  {
       .then((response) => response.json())
       .then((responseJson) => {
          console.log(responseJson);
-         var obj=responseJson;
+         obj=responseJson;
          for(var i=0;i<obj.length;i++){
            dset[i]=parseFloat(obj[i]["air pressure"]).toFixed(2);
            console.log(dset[i]);
@@ -65,7 +65,7 @@ export default class Pressure extends React.Component  {
       <Image source={require('../assets/ambiencelogo.png')} style={styles.avatar}></Image>
 
       <Image source={require('../assets/pressure.png')} style={styles.body}></Image>
-      <Text style={styles.pr} onPress={() => this.props.navigation.navigate('Weather')}>{dset[0]}</Text>
+      <Text style={styles.pr} onPress={() => this.props.navigation.navigate('Weather')}>{dset[obj.length-1]}</Text>
       <Text style={styles.state}>AIR PRESSURE</Text>
 
 
