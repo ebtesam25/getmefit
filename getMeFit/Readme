@@ -1,4 +1,4 @@
 #Resources
-The base code for the M5 Stick C was provided by the manufacturer itself. We used the given examples and added some of our own features to the project to make it work.
+The base code for the M5 Stick C was provided by the manufacturer itself. We used the given examples and added some of our own functions to the project to make it work.
 
 M5StickC lib - https://github.com/m5stack/M5StickC
