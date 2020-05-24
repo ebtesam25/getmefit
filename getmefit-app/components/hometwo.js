@@ -12,6 +12,7 @@ let customFonts  = {
 export default class Hometwo extends React.Component  {
   state = {
     fontsLoaded: false,
+    data: '',
   };
 
   async _loadFontsAsync() {
@@ -21,6 +22,19 @@ export default class Hometwo extends React.Component  {
 
   componentDidMount() {
     this._loadFontsAsync();
+    fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetheartrateandox', {
+         method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+         console.log(responseJson["blood oxygen"]);
+         this.setState({
+            data: responseJson
+         });
+      })
+      .catch((error) => {
+         console.error(error);
+      });
   }
 
   render(){
@@ -41,14 +55,14 @@ export default class Hometwo extends React.Component  {
       <Image source={require('../assets/line3.png')} style={styles.line3}></Image>
       <Text style={styles.bdy}>PULSE</Text>
       <Text style={styles.tmpr}>RATE</Text>
-      <Text style={styles.btnum} onPress={() => this.props.navigation.navigate('Pulse')}>50</Text>
+      <Text style={styles.btnum} onPress={() => this.props.navigation.navigate('Pulse')}>{this.state.data.pulse}</Text>
       <Text style={styles.bps}>bpm</Text>
 
 
       <Image source={require('../assets/line4.png')} style={styles.line4}></Image>
       <Text style={styles.ox}>OXYGEN</Text>
       <Text style={styles.sat}>SATURATION</Text>
-      <Text style={styles.oxs} onPress={() => this.props.navigation.navigate('Oxygen')}>84%</Text>
+      <Text style={styles.oxs} onPress={() => this.props.navigation.navigate('Oxygen')}>{this.state.data["blood oxygen"]}%</Text>
 
 
       

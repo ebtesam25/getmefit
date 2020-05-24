@@ -32,9 +32,10 @@ export default class Menu extends React.Component  {
       <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Oxygen')}>Oxygen</Text>
       <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Steps')}>Steps</Text>
       <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Gsr')}>GSR</Text>
+      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Ambience')}>Ambience</Text>
       <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Purifier')}>Purifier</Text>
       <Text style={styles.emergency} onPress={() => this.props.navigation.navigate('Emergency')}>Emergency</Text>
-      <Image source={require('../assets/back.png')} style={styles.back}></Image><Text style={styles.backtxt} onPress={() => this.props.navigation.navigate('Hometwo')}>BACK</Text>
+      <Text style={styles.backtxt} onPress={() => this.props.navigation.navigate('Hometwo')}>BACK</Text>
     </View>
     );
     }
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     top:'15%',
     color:'#3f3d56',
+    marginBottom:'2%',
   },
   menutxt:{
     fontFamily:'Avenir',

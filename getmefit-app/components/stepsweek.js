@@ -52,7 +52,7 @@ export default class Stepsweek extends React.Component  {
       <Image source={require('../assets/steplogo.png')} style={styles.avatar}></Image>
 
       <Image source={require('../assets/step.png')} style={styles.body}></Image>
-      <Text style={styles.pr}>{parseInt(this.state.data.weeklysteps)}</Text>
+      <Text style={styles.pr} onPress={() => this.props.navigation.navigate('Stepstotal')}>{parseInt(this.state.data.weeklysteps)}</Text>
       <Text style={styles.state}>WEEKLY</Text>
 
 

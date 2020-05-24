@@ -16,6 +16,9 @@ import Purifier from './components/purifier';
 import Emergency from './components/emergency';
 import Stepsweek from './components/stepsweek';
 import Stepstotal from './components/stepstotal';
+import Ambience from './components/ambience';
+import Pressure from './components/pressure';
+import Weather from './components/weather';
 
 const Stack = createStackNavigator();
 
@@ -85,6 +88,21 @@ function MyStack() {
       <Stack.Screen 
         name="Emergency" 
         component={Emergency}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Ambience" 
+        component={Ambience}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Pressure" 
+        component={Pressure}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Weather" 
+        component={Weather}
         options={{ headerShown: false}}  
       />
     </Stack.Navigator>

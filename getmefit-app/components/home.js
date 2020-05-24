@@ -8,10 +8,14 @@ let customFonts  = {
   'Avenir': require('../assets/fonts/Avenir.ttf'),
   'Futura': require('../assets/fonts/Futura.ttf'),
 };
-
+var obj=[];
+var dset=[];
 export default class Home extends React.Component  {
   state = {
+    isLoading: true,
     fontsLoaded: false,
+    data: '',
+    dataset:[],
   };
 
   async _loadFontsAsync() {
@@ -21,6 +25,24 @@ export default class Home extends React.Component  {
 
   componentDidMount() {
     this._loadFontsAsync();
+    fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetallexternal', {
+         method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+         console.log(responseJson);
+         var obj=responseJson;
+         for(var i=0;i<obj.length;i++){
+           dset[i]=parseFloat(obj[i]["ambient temperature"]).toFixed(2);
+           console.log(dset[i]);
+         }
+         this.setState({
+            dataset: responseJson
+         });
+      })
+      .catch((error) => {
+         console.error(error);
+      });
   }
 
   render(){
@@ -47,7 +69,7 @@ export default class Home extends React.Component  {
       <Image source={require('../assets/line2.png')} style={styles.line2}></Image>
       <Text style={styles.amb}>AMBIENT</Text>
       <Text style={styles.atmpr}>TEMPERATURE</Text>
-      <Text style={styles.atnum}>63°</Text>
+      <Text style={styles.atnum} onPress={() => this.props.navigation.navigate('Weather')}>{dset[0]}°</Text>
 
 
     </View>

@@ -11,14 +11,13 @@ let customFonts  = {
 };
 var obj=[];
 var dset=[];
-
-export default class Pulse extends React.Component  {
-  state = {
-    isLoading: true,
-    fontsLoaded: false,
-    data: '',
-    dataset:[],
-  };
+export default class Weather extends React.Component  {
+    state = {
+        isLoading: true,
+        fontsLoaded: false,
+        data: '',
+        dataset:[],
+      };
 
   async _loadFontsAsync() {
     await Font.loadAsync(customFonts);
@@ -27,29 +26,16 @@ export default class Pulse extends React.Component  {
 
   componentDidMount() {
     this._loadFontsAsync();
-    fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetheartrateandox', {
+    fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetallexternal', {
          method: 'GET'
       })
       .then((response) => response.json())
       .then((responseJson) => {
          console.log(responseJson);
-         this.setState({
-            data: responseJson
-         });
-      })
-      .catch((error) => {
-         console.error(error);
-      });
-      fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetallheartrates', {
-         method: 'GET'
-      })
-      .then((response) => response.json())
-      .then((responseJson) => {
-         console.log(responseJson);
-         obj=responseJson;
+         var obj=responseJson;
          for(var i=0;i<obj.length;i++){
-           dset[i]=parseInt(obj[i]);
-           console.log(typeof dset[2]);
+           dset[i]=parseFloat(obj[i]["ambient temperature"]).toFixed(2);
+           console.log(dset[i]);
          }
          this.setState({
             dataset: responseJson
@@ -58,38 +44,38 @@ export default class Pulse extends React.Component  {
       .catch((error) => {
          console.error(error);
       });
-    
-  
   }
 
   render(){
-    if(this.state.isLoading && dset.length<3){
-      return(
-        <View style={{flex: 1, padding: 20}}>
-            <ActivityIndicator/>
-          </View>
-  
-      );
+      if(this.state.isLoading && dset.length<3){
+    return(
+      <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator/>
+        </View>
+
+    );
     }
     else if (this.state.fontsLoaded) {
     return (
     <View style={styles.container}>
       <Image source={require('../assets/header.png')} style={styles.header}></Image>
       <Text style={styles.txt}>John Doe</Text>
-      <Text style={styles.txt2}>Pulse</Text>
+      <Text style={styles.txt2}>Ambience</Text>
         <Image source={require('../assets/menu.png')} style={styles.menu}></Image><Text style={styles.menutxt} onPress={() => this.props.navigation.navigate('Menu')}>MENU</Text>
-      <Image source={require('../assets/pulse.png')} style={styles.avatar}></Image>
+      <Image source={require('../assets/ambiencelogo.png')} style={styles.avatar}></Image>
 
-      <Image source={require('../assets/pulse2.png')} style={styles.body}></Image>
-      <Text style={styles.pr}>{this.state.data.pulse}</Text><Text style={styles.bpm}>bpm</Text>
-      <Text style={styles.state}>GOOD</Text>
+      <Image source={require('../assets/weather.png')} style={styles.body}></Image>
+      <Text style={styles.pr} onPress={() => this.props.navigation.navigate('Ambience')}>{dset[9]}</Text>
+      <Text style={styles.state}>TEMPERATURE</Text>
+   
 
 
       <LineChart
             data={{
+                
                 datasets: [
                 {
-                    data:dset,
+                    data: dset,
                 },
                 ],
             }}
@@ -194,21 +180,12 @@ const styles = StyleSheet.create({
   },
   pr:{
       fontFamily:'Avenir',
-      fontSize:100,
+      fontSize:60,
       position:'absolute',
       zIndex:3,
-      top:'40%',
-      left:'32.5%',
+      top:'42%',
+      alignSelf:'center',
       color:'#3f3d56',
-  },
-  bpm:{
-    fontFamily:'Avenir',
-    fontSize:25,
-    position:'absolute',
-    zIndex:3,
-    top:'47%',
-    right:'30%',
-    color:'#3f3d56',
   },
   state:{
     fontFamily:'Futura',
@@ -218,6 +195,15 @@ const styles = StyleSheet.create({
     top:'53%',
     alignSelf:'center',
     color:'#e6ebff',
+  },
+  deg:{
+    fontFamily:'Avenir',
+    fontSize:60,
+    position:'absolute',
+    zIndex:3,
+    top:'40%',
+    right:'35%',
+    color:'#3f3d56',
   },
 
   

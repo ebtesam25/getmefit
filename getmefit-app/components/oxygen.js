@@ -13,6 +13,7 @@ let customFonts  = {
 export default class Oxygen extends React.Component  {
   state = {
     fontsLoaded: false,
+    data: '',
   };
 
   async _loadFontsAsync() {
@@ -22,6 +23,21 @@ export default class Oxygen extends React.Component  {
 
   componentDidMount() {
     this._loadFontsAsync();
+    fetch('https://us-central1-aiot-fit-xlab.cloudfunctions.net/ufitgetheartrateandox', {
+         method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+         console.log(responseJson["blood oxygen"]);
+         this.setState({
+            data: responseJson
+         });
+      })
+      .catch((error) => {
+         console.error(error);
+      });
+    
+  
   }
 
   render(){
@@ -35,7 +51,7 @@ export default class Oxygen extends React.Component  {
       <Image source={require('../assets/oxygenlogo.png')} style={styles.avatar}></Image>
 
       <Image source={require('../assets/oxygen.png')} style={styles.body}></Image>
-      <Text style={styles.pr}>65</Text><Text style={styles.deg}>%</Text>
+      <Text style={styles.pr}>{this.state.data["blood oxygen"]}</Text><Text style={styles.deg}>%</Text>
       <Text style={styles.state}>NORMAL</Text>
 
 
