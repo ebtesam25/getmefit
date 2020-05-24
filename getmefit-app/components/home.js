@@ -41,7 +41,7 @@ export default class Home extends React.Component  {
       <Image source={require('../assets/btempline.png')} style={styles.line1}></Image>
       <Text style={styles.bdy}>BODY</Text>
       <Text style={styles.tmpr}>TEMPERATURE</Text>
-      <Text style={styles.btnum}>70°</Text>
+      <Text style={styles.btnum} onPress={() => this.props.navigation.navigate('Temperature')}>70°</Text>
 
     
       <Image source={require('../assets/line2.png')} style={styles.line2}></Image>

@@ -41,14 +41,14 @@ export default class Hometwo extends React.Component  {
       <Image source={require('../assets/line3.png')} style={styles.line3}></Image>
       <Text style={styles.bdy}>PULSE</Text>
       <Text style={styles.tmpr}>RATE</Text>
-      <Text style={styles.btnum}>50</Text>
+      <Text style={styles.btnum} onPress={() => this.props.navigation.navigate('Pulse')}>50</Text>
       <Text style={styles.bps}>bpm</Text>
 
 
       <Image source={require('../assets/line4.png')} style={styles.line4}></Image>
       <Text style={styles.ox}>OXYGEN</Text>
       <Text style={styles.sat}>SATURATION</Text>
-      <Text style={styles.oxs}>84%</Text>
+      <Text style={styles.oxs} onPress={() => this.props.navigation.navigate('Oxygen')}>84%</Text>
 
 
       

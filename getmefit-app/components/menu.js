@@ -32,8 +32,8 @@ export default class Menu extends React.Component  {
       <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Oxygen')}>Oxygen</Text>
       <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Steps')}>Steps</Text>
       <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Gsr')}>GSR</Text>
-      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Home')}>Purifier</Text>
-      <Text style={styles.emergency} onPress={() => this.props.navigation.navigate('Home')}>Emergency</Text>
+      <Text style={styles.welcome} onPress={() => this.props.navigation.navigate('Purifier')}>Purifier</Text>
+      <Text style={styles.emergency} onPress={() => this.props.navigation.navigate('Emergency')}>Emergency</Text>
       <Image source={require('../assets/back.png')} style={styles.back}></Image><Text style={styles.backtxt} onPress={() => this.props.navigation.navigate('Hometwo')}>BACK</Text>
     </View>
     );

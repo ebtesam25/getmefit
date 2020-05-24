@@ -12,6 +12,8 @@ import Temperature from './components/temperature';
 import Oxygen from './components/oxygen';
 import Steps from './components/steps';
 import Gsr from './components/gsr';
+import Purifier from './components/purifier';
+import Emergency from './components/emergency';
 
 const Stack = createStackNavigator();
 
@@ -61,6 +63,16 @@ function MyStack() {
       <Stack.Screen 
         name="Gsr" 
         component={Gsr}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Purifier" 
+        component={Purifier}
+        options={{ headerShown: false}}  
+      />
+      <Stack.Screen 
+        name="Emergency" 
+        component={Emergency}
         options={{ headerShown: false}}  
       />
     </Stack.Navigator>
